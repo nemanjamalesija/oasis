@@ -40,16 +40,18 @@ function CreateCabinForm() {
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label='name' error={errors?.name?.message || undefined}>
         <Input
+          disabled={isCreating}
           type='text'
           id='name'
           {...register('name', { required: 'Cabin name is required' })}
         />
       </FormRow>
       <FormRow
-        label='maxCapacity'
+        label='Maximum capacity'
         error={errors?.maxCapacity?.message || undefined}
       >
         <Input
+          disabled={isCreating}
           type='number'
           id='maxCapacity'
           {...register('maxCapacity', {
@@ -59,8 +61,12 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label='name' error={errors?.regularPrice?.message || undefined}>
+      <FormRow
+        label='Regular price'
+        error={errors?.regularPrice?.message || undefined}
+      >
         <Input
+          disabled={isCreating}
           type='number'
           id='regularPrice'
           {...register('regularPrice', {
@@ -70,8 +76,9 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label='name' error={errors?.discount?.message || undefined}>
+      <FormRow label='Discount' error={errors?.discount?.message || undefined}>
         <Input
+          disabled={isCreating}
           type='number'
           id='discount'
           defaultValue={0}
@@ -84,7 +91,10 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label='name' error={errors?.description?.message || undefined}>
+      <FormRow
+        label='Description'
+        error={errors?.description?.message || undefined}
+      >
         <Textarea
           type='number'
           id='description'
@@ -94,7 +104,7 @@ function CreateCabinForm() {
           })}
         />
       </FormRow>
-      <FormRow label='name' error={errors?.image?.message || undefined}>
+      <FormRow label='Cabin photo' error={errors?.image?.message || undefined}>
         <FileInput
           id='image'
           accept='image/*'
