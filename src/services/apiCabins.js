@@ -55,7 +55,7 @@ export async function createCabin(newCabin) {
 
     console.error(error);
     throw new Error(
-      'Cabin image could not be uploaded. Thus, cabin not be created'
+      'Cabin image could not be uploaded. Thus, cabin was not created'
     );
   }
 
