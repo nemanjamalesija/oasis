@@ -1,4 +1,3 @@
-import isSameMinute from 'date-fns/isSameMinute';
 import supabase, { supabaseUrl } from './supabase';
 
 export async function getCabins() {
