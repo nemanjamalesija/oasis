@@ -36,6 +36,8 @@ const CabinTable = () => {
 
   if (isLoading) return <Spinner />;
 
+  console.log(cabins);
+
   return (
     <Table role='table'>
       <TableHeader>

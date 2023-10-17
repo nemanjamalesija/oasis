@@ -51,10 +51,13 @@ const CabinRow = ({
   maxCapacity,
   name,
   regularPrice,
+  description,
   discount,
 }) => {
   const [showForm, setShowForm] = useState(false);
   const queryClient = useQueryClient();
+
+  console.log(image);
 
   const { mutate } = useMutation({
     mutationFn: deleteCabin,
@@ -83,11 +86,12 @@ const CabinRow = ({
       {showForm && (
         <CreateCabinForm
           cabinToEdit={{
-            cabinID,
+            id: cabinID,
             image,
             maxCapacity,
             name,
             regularPrice,
+            description,
             discount,
           }}
         />
