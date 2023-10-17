@@ -23,8 +23,6 @@ export async function deleteCabin(cabinID) {
 export async function createEditCabin(newCabin, id) {
   const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
 
-  console.log(newCabin);
-
   // https://rzakgratzmyihtuhgnmw.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
   const imageName = `${crypto.randomUUID()}--${newCabin.image.name}`.replaceAll(
     '/',

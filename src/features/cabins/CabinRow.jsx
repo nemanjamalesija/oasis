@@ -57,8 +57,6 @@ const CabinRow = ({
   const [showForm, setShowForm] = useState(false);
   const queryClient = useQueryClient();
 
-  console.log(image);
-
   const { mutate } = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
