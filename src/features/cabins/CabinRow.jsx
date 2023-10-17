@@ -5,6 +5,7 @@ import { deleteCabin } from '../../services/apiCabins';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import CreateCabinForm from './CreateCabinForm';
+import useDeleteCabin from './useDeleteCabin';
 
 const TableRow = styled.div`
   display: grid;
@@ -55,19 +56,8 @@ const CabinRow = ({
   discount,
 }) => {
   const [showForm, setShowForm] = useState(false);
-  const queryClient = useQueryClient();
+  const { isDeleting, deleteCabin } = useDeleteCabin();
 
-  const { mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success('Cabin succefully deleted');
-
-      queryClient.invalidateQueries({
-        queryKey: ['cabin'],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
   return (
     <>
       <TableRow role='row'>
@@ -75,10 +65,16 @@ const CabinRow = ({
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity}</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&ndash;</span>
+        )}
         <div>
           <button onClick={() => setShowForm(!showForm)}>Edit</button>
-          <button onClick={() => mutate(cabinID)}>Delete</button>
+          <button onClick={() => deleteCabin(cabinID)} disabled={isDeleting}>
+            Delete
+          </button>
         </div>
       </TableRow>
       {showForm && (
