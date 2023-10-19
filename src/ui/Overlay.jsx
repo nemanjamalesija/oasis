@@ -8,12 +8,12 @@ const StyledOverlay = styled.div`
   height: 100vh;
   background-color: var(--backdrop-color);
   backdrop-filter: blur(4px);
-  z-index: 99;
+  z-index: 998;
   transition: all 0.5s;
 `;
 
-const Overlay = () => {
-  return <StyledOverlay></StyledOverlay>;
+const Overlay = ({ close }) => {
+  return <StyledOverlay onClick={() => close()}></StyledOverlay>;
 };
 
 export default Overlay;

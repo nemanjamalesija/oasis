@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, createContext, useContext, cloneElement } from 'react';
 import Overlay from './Overlay';
 import { createPortal } from 'react-dom';
+import { HiXMark } from 'react-icons/hi2';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -25,7 +26,7 @@ const Button = styled.button`
   transition: all 0.2s;
   position: absolute;
   top: 1.2rem;
-  right: 1.9rem;
+  right: 1.3rem;
 
   &:hover {
     background-color: var(--color-grey-100);
@@ -76,7 +77,7 @@ function Window({ children, name }) {
       <Overlay close={close} />
       <StyledModal>
         <Button onClick={close}>
-          <svg>X</svg>
+          <HiXMark />
         </Button>
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
