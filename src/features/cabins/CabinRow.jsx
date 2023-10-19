@@ -6,9 +6,7 @@ import useDeleteCabin from './useDeleteCabin';
 import { HiTrash, HiSquare2Stack, HiPencil } from 'react-icons/hi2';
 import useCreateCabin from './useCreateCabin';
 import Modal from '../../ui/Modal';
-import Button from '../../ui/Button';
 import ConfirmDelete from '../../ui/ConfirmDelete';
-import Heading from '../../ui/Heading';
 
 const TableRow = styled.div`
   display: grid;
@@ -93,16 +91,36 @@ const CabinRow = ({
           <button onClick={handleDuplicateCabin} disabled={isCreating}>
             <HiSquare2Stack />
           </button>
-          <button onClick={() => setShowForm(!showForm)}>
-            <HiPencil />
-          </button>
-
           <Modal>
-            <Modal.Open opens='confirm-delete-cabin'>
-              <HiTrash />
+            <Modal.Open opens='edit-cabin-form'>
+              <button>
+                <HiPencil onClick={() => setShowForm(!showForm)} />
+              </button>
             </Modal.Open>
 
-            <Modal.Window name='confirm-delete-cabin'>
+            <Modal.Window name='edit-cabin-form'>
+              <CreateCabinForm
+                cabinToEdit={{
+                  id: cabinID,
+                  image,
+                  maxCapacity,
+                  name,
+                  regularPrice,
+                  description,
+                  discount,
+                }}
+              />
+            </Modal.Window>
+          </Modal>
+
+          <Modal>
+            <Modal.Open opens='confirm-delete-cabin-modal'>
+              <button>
+                <HiTrash />
+              </button>
+            </Modal.Open>
+
+            <Modal.Window name='confirm-delete-cabin-modal'>
               <ConfirmDelete
                 resourceName='cabin'
                 onConfirm={deleteCabinHandler}
@@ -112,19 +130,6 @@ const CabinRow = ({
           </Modal>
         </div>
       </TableRow>
-      {showForm && (
-        <CreateCabinForm
-          cabinToEdit={{
-            id: cabinID,
-            image,
-            maxCapacity,
-            name,
-            regularPrice,
-            description,
-            discount,
-          }}
-        />
-      )}
     </>
   );
 };
