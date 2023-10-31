@@ -1,4 +1,10 @@
-import { createContext, useContext, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { HiMiniEllipsisVertical } from 'react-icons/hi2';
 import styled from 'styled-components';
@@ -107,12 +113,35 @@ function Toggle({ id }) {
 }
 
 function List({ id, children }) {
-  const { openId, position } = useContext(MenusContext);
+  const { openId, position, close } =
+    useContext(MenusContext);
+  const ref = useRef();
+
+  useEffect(() => {
+    function handleClick(e) {
+      console.log(e.target);
+
+      if (ref.current && !ref.current.contains(e.target)) {
+        close();
+      }
+    }
+
+    document.addEventListener('click', handleClick, true);
+
+    return () =>
+      document.removeEventListener(
+        'click',
+        handleClick,
+        true
+      );
+  }, [close]);
 
   if (openId !== id) return null;
 
   return createPortal(
-    <StyledList position={position}>{children}</StyledList>,
+    <StyledList ref={ref} position={position}>
+      {children}
+    </StyledList>,
     document.body
   );
 }
