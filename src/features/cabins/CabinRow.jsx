@@ -140,13 +140,13 @@ const CabinRow = ({
           </Modal>
 
           <Menus.Menu>
-            <Menus.Toggle id={cabinId} />
+            <Menus.Toggle id={cabinID} />
 
-            <Menu.List id={cabinId}>
-              <Menu.Button>Duplicate</Menu.Button>
-              <Menu.Button>Edit</Menu.Button>
-              <Menu.Button>Delete</Menu.Button>
-            </Menu.List>
+            <Menus.List id={cabinID}>
+              <Menus.Button>Duplicate</Menus.Button>
+              <Menus.Button>Edit</Menus.Button>
+              <Menus.Button>Delete</Menus.Button>
+            </Menus.List>
           </Menus.Menu>
         </div>
       </TableRow>
