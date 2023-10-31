@@ -119,8 +119,6 @@ function List({ id, children }) {
 
   useEffect(() => {
     function handleClick(e) {
-      console.log(e.target);
-
       if (ref.current && !ref.current.contains(e.target)) {
         close();
       }
