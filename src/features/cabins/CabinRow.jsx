@@ -3,10 +3,15 @@ import { formatCurrency } from '../../utils/helpers';
 import { useState } from 'react';
 import CreateCabinForm from './CreateCabinForm';
 import useDeleteCabin from './useDeleteCabin';
-import { HiTrash, HiSquare2Stack, HiPencil } from 'react-icons/hi2';
+import {
+  HiTrash,
+  HiSquare2Stack,
+  HiPencil,
+} from 'react-icons/hi2';
 import useCreateCabin from './useCreateCabin';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import Menus from '../../ui/Menus';
 
 const TableRow = styled.div`
   display: grid;
@@ -88,13 +93,18 @@ const CabinRow = ({
           <span>&ndash;</span>
         )}
         <div>
-          <button onClick={handleDuplicateCabin} disabled={isCreating}>
+          <button
+            onClick={handleDuplicateCabin}
+            disabled={isCreating}
+          >
             <HiSquare2Stack />
           </button>
           <Modal>
             <Modal.Open opens='edit-cabin-form'>
               <button>
-                <HiPencil onClick={() => setShowForm(!showForm)} />
+                <HiPencil
+                  onClick={() => setShowForm(!showForm)}
+                />
               </button>
             </Modal.Open>
 
@@ -128,6 +138,16 @@ const CabinRow = ({
               ></ConfirmDelete>
             </Modal.Window>
           </Modal>
+
+          <Menus.Menu>
+            <Menus.Toggle id={cabinId} />
+
+            <Menu.List id={cabinId}>
+              <Menu.Button>Duplicate</Menu.Button>
+              <Menu.Button>Edit</Menu.Button>
+              <Menu.Button>Delete</Menu.Button>
+            </Menu.List>
+          </Menus.Menu>
         </div>
       </TableRow>
     </>
