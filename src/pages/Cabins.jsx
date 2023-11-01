@@ -24,7 +24,6 @@ function Cabins() {
           </Modal.Window>
         </Modal>
       </Row>
-      ;
     </>
   );
 }
