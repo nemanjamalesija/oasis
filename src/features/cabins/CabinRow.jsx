@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { formatCurrency } from '../../utils/helpers';
-import { useState } from 'react';
 import CreateCabinForm from './CreateCabinForm';
 import useDeleteCabin from './useDeleteCabin';
 import {
@@ -61,9 +60,8 @@ const CabinRow = ({
   description,
   discount,
 }) => {
-  const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { isCreating, createCabin } = useCreateCabin();
+  const { createCabin } = useCreateCabin();
 
   function handleDuplicateCabin() {
     createCabin({
