@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { createContext, useContext } from 'react';
+import styled from 'styled-components';
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -26,6 +27,8 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-600);
+  display: grid;
+  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
 `;
 
 const StyledRow = styled(CommonRow)`
@@ -58,3 +61,32 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
 `;
+
+function Table({ children }) {
+  return <StyledTable role='table'>{children}</StyledTable>;
+}
+
+function Header() {
+  return (
+    <StyledHeader role='row' as='header'>
+      <div></div>
+      <div>Cabin</div>
+      <div>Capacity</div>
+      <div>Price</div>
+      <div>Discount</div>
+      <div></div>
+    </StyledHeader>
+  );
+}
+
+const Body = ({ data, render }) => {
+  if (!data.length)
+    return <Empty>No data to show at the moment</Empty>;
+
+  return <StyledBody>{data.map(render)}</StyledBody>;
+};
+
+Table.Header = Header;
+Table.Body = Body;
+
+export default Table;
