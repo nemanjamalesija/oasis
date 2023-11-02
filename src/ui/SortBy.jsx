@@ -9,15 +9,13 @@ const SortBy = ({ options }) => {
     setSearchParams(searchParams);
   }
 
+  const sortBy = searchParams.get('sortBy' || '');
+
   return (
     <Select
       $type='white'
       options={options}
-      render={(option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      )}
+      value={sortBy}
       onChange={handleChange}
     />
   );

@@ -28,11 +28,11 @@ const CabinTableOperations = () => {
           },
           {
             value: 'regularPrice-desc',
-            label: 'Sort by price (low first)',
+            label: 'Sort by price (high first)',
           },
           {
             value: 'regularPrice-asc',
-            label: 'Sort by price (high first)',
+            label: 'Sort by price (low first)',
           },
           {
             value: 'maxCapacity-asc',
