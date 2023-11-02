@@ -12,7 +12,7 @@ const StyledTable = styled.div`
 
 const CommonRow = styled.div`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: ${(props) => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -27,8 +27,6 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-600);
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
 `;
 
 const StyledRow = styled(CommonRow)`
@@ -62,19 +60,22 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-function Table({ children }) {
-  return <StyledTable role='table'>{children}</StyledTable>;
+const TableContext = createContext();
+
+function Table({ children, columns }) {
+  return (
+    <TableContext.Provider value={{ columns }}>
+      <StyledTable role='table'>{children}</StyledTable>;
+    </TableContext.Provider>
+  );
 }
 
-function Header() {
+function Header({ children }) {
+  const { columns } = useContext(TableContext);
+
   return (
-    <StyledHeader role='row' as='header'>
-      <div></div>
-      <div>Cabin</div>
-      <div>Capacity</div>
-      <div>Price</div>
-      <div>Discount</div>
-      <div></div>
+    <StyledHeader role='row' as='header' $columns={columns}>
+      {children}
     </StyledHeader>
   );
 }
