@@ -80,6 +80,15 @@ function Header({ children }) {
   );
 }
 
+function Row({ children }) {
+  const { columns } = useContext(TableContext);
+  return (
+    <StyledRow role='row' $columns={columns}>
+      {children}
+    </StyledRow>
+  );
+}
+
 const Body = ({ data, render }) => {
   if (!data.length)
     return <Empty>No data to show at the moment</Empty>;
@@ -88,6 +97,7 @@ const Body = ({ data, render }) => {
 };
 
 Table.Header = Header;
+Table.Row = Row;
 Table.Body = Body;
 
 export default Table;

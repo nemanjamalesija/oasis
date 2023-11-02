@@ -25,7 +25,7 @@ function BookingTable() {
           <div></div>
         </Table.Header>
 
-        {/* <Table.Body
+        <Table.Body
           data={bookings}
           render={(booking) => (
             <BookingRow
@@ -33,7 +33,7 @@ function BookingTable() {
               booking={booking}
             />
           )}
-        /> */}
+        />
       </Table>
     </Menus>
   );
