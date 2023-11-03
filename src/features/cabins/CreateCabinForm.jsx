@@ -10,7 +10,9 @@ import useCreateCabin from './useCreateCabin';
 import useEditCabin from './useEditCabin';
 
 function CreateCabinForm({ cabinToEdit = {} }) {
-  const isEditSession = Boolean(cabinToEdit.id ? cabinToEdit.id : false);
+  const isEditSession = Boolean(
+    cabinToEdit.id ? cabinToEdit.id : false
+  );
   const { isCreating, createCabin } = useCreateCabin();
   const { isEditing, editCabin } = useEditCabin();
 
@@ -27,11 +29,17 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   const isWorking = isCreating || isEditing;
 
   const onSubmit = (data) => {
-    const image = typeof data.image === 'string' ? data.image : data.image[0];
+    const image =
+      typeof data.image === 'string'
+        ? data.image
+        : data.image[0];
 
     if (isEditSession)
       editCabin(
-        { newCabinData: { ...data, image }, id: cabinToEdit.id },
+        {
+          newCabinData: { ...data, image },
+          id: cabinToEdit.id,
+        },
         {
           onSuccess: () => reset(),
         }
@@ -53,10 +61,15 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           disabled={isCreating}
           type='text'
           id='name'
-          {...register('name', { required: 'Cabin name is required' })}
+          {...register('name', {
+            required: 'Cabin name is required',
+          })}
         />
       </FormRow>
-      <FormRow label='Maximum capacity' error={errors?.maxCapacity?.message}>
+      <FormRow
+        label='Maximum capacity'
+        error={errors?.maxCapacity?.message}
+      >
         <Input
           disabled={isWorking}
           type='number'
@@ -64,11 +77,17 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           {...register('maxCapacity', {
             required: 'Cabin max capacity is required',
             valueAsNumber: true,
-            min: { value: 1, message: 'Capacity should be at least 1' },
+            min: {
+              value: 1,
+              message: 'Capacity should be at least 1',
+            },
           })}
         />
       </FormRow>
-      <FormRow label='Regular price' error={errors?.regularPrice?.message}>
+      <FormRow
+        label='Regular price'
+        error={errors?.regularPrice?.message}
+      >
         <Input
           disabled={isWorking}
           type='number'
@@ -76,11 +95,17 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           {...register('regularPrice', {
             required: 'Cabin price is required',
             valueAsNumber: true,
-            min: { value: 1, message: 'Price should be at least 1' },
+            min: {
+              value: 1,
+              message: 'Price should be at least 1',
+            },
           })}
         />
       </FormRow>
-      <FormRow label='Discount' error={errors?.discount?.message}>
+      <FormRow
+        label='Discount'
+        error={errors?.discount?.message}
+      >
         <Input
           disabled={isWorking}
           type='number'
@@ -95,7 +120,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           })}
         />
       </FormRow>
-      <FormRow label='Description' error={errors?.description?.message}>
+      <FormRow
+        label='Description'
+        error={errors?.description?.message}
+      >
         <Textarea
           type='number'
           id='description'
@@ -105,21 +133,33 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           })}
         />
       </FormRow>
-      <FormRow label='Cabin photo' error={errors?.image?.message}>
+      <FormRow
+        label='Cabin photo'
+        error={errors?.image?.message}
+      >
         <FileInput
           id='image'
           accept='image/*'
           {...register('image', {
-            required: isEditSession ? false : 'Cabin image is required',
+            required: isEditSession
+              ? false
+              : 'Cabin image is required',
           })}
         />
       </FormRow>
       <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button disabled={isWorking} $variation='secondary' type='reset'>
+        <Button
+          $variation='secondary'
+          disabled={isWorking}
+          type='reset'
+        >
           Cancel
         </Button>
-        <Button>{isEditSession ? 'Edit cabin' : 'Create new cabin'}</Button>
+        <Button>
+          {isEditSession
+            ? 'Edit cabin'
+            : 'Create new cabin'}
+        </Button>
       </FormRow>
     </Form>
   );
