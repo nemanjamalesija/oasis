@@ -13,7 +13,7 @@ export default function useBookings() {
       : { field: 'status', value: filterValue };
 
   const { isLoading, data: bookings } = useQuery({
-    queryKey: ['bookings'],
+    queryKey: ['bookings', filter],
     queryFn: () => getBookings({ filter }),
   });
 

@@ -8,8 +8,21 @@ export async function getBookings({ filter, sortBy }) {
       'id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)'
     );
 
+  // const querz = [
+  //   { field: 'status', value: 'checked-in', method: 'eq' },
+  //   { field: 'numNights', value: 1, method: 'gt' },
+  // ];
+
+  //   querz.forEach(
+  //     async (q) => await query[q.method](q.field, q.value)
+  //   );
+
   // FILTER
-  if (filter !== null) query.eq(filter.field, filter.value);
+  if (filter !== null)
+    query[filter.method || 'eq'](
+      filter.field,
+      filter.value
+    ).gt('numNights', 5);
 
   const { data, error } = await query;
 
