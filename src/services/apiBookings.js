@@ -28,7 +28,7 @@ export async function getBookings({
     query[filter.method || 'eq'](
       filter.field,
       filter.value
-    ).gt('numNights', 5);
+    );
 
   // SORT
   if (sortBy)

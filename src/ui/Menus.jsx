@@ -8,6 +8,7 @@ import {
 import { createPortal } from 'react-dom';
 import { HiMiniEllipsisVertical } from 'react-icons/hi2';
 import styled from 'styled-components';
+import useOutsideClick from '../hooks/useOutsideClick';
 
 const Menu = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ const StyledButton = styled.button`
 const MenusContext = createContext();
 
 function Menus({ children }) {
-  const [openId, setOpenId] = useState();
+  const [openId, setOpenId] = useState('');
   const [position, setPosition] = useState(null);
 
   const close = () => setOpenId('');
@@ -81,7 +82,13 @@ function Menus({ children }) {
 
   return (
     <MenusContext.Provider
-      value={{ openId, close, open, position, setPosition }}
+      value={{
+        openId,
+        close,
+        open,
+        position,
+        setPosition,
+      }}
     >
       {children}
     </MenusContext.Provider>
@@ -93,6 +100,8 @@ function Toggle({ id }) {
     useContext(MenusContext);
 
   function handleClick(e) {
+    e.stopPropagation();
+
     const rect = e.target
       .closest('button')
       .getBoundingClientRect();
@@ -115,24 +124,7 @@ function Toggle({ id }) {
 function List({ id, children }) {
   const { openId, position, close } =
     useContext(MenusContext);
-  const ref = useRef();
-
-  useEffect(() => {
-    function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        close();
-      }
-    }
-
-    document.addEventListener('click', handleClick, true);
-
-    return () =>
-      document.removeEventListener(
-        'click',
-        handleClick,
-        true
-      );
-  }, [close]);
+  const ref = useOutsideClick(close, false);
 
   if (openId !== id) return null;
 
