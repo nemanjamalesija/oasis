@@ -61,6 +61,8 @@ export async function getBooking(id) {
     .eq('id', id)
     .single();
 
+  console.log(data);
+
   if (error) {
     console.error(error);
     throw new Error('Booking not found');
@@ -139,6 +141,8 @@ export async function updateBooking(id, obj) {
 }
 
 export async function deleteBooking(id) {
+  console.log(id);
+
   // REMEMBER RLS POLICIES
   const { data, error } = await supabase
     .from('bookings')

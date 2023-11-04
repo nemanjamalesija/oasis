@@ -9,8 +9,10 @@ import { formatDistanceFromNow } from '../../utils/helpers';
 import {
   HiArrowDownOnSquare,
   HiEye,
+  HiTrash,
 } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
+import useDeleteBooking from './useDeleteBooking';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -60,6 +62,9 @@ function BookingRow({
   };
 
   const navigate = useNavigate();
+  const { isDeleting, deleteBooking } = useDeleteBooking();
+
+  console.log(bookingId);
 
   return (
     <Table.Row>
@@ -111,6 +116,14 @@ function BookingRow({
               Check in
             </Menus.Button>
           )}
+
+          <Menus.Button
+            icon={<HiTrash />}
+            onClick={() => deleteBooking(bookingId)}
+            disabled={isDeleting}
+          >
+            Delete booking
+          </Menus.Button>
         </Menus.List>
       </Menus.Menu>
     </Table.Row>
