@@ -64,8 +64,6 @@ function BookingRow({
   const navigate = useNavigate();
   const { isDeleting, deleteBooking } = useDeleteBooking();
 
-  console.log(bookingId);
-
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
