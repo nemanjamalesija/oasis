@@ -71,7 +71,7 @@ function BookingDetail() {
           </Button>
         )}
 
-        {status !== 'checked-out' && (
+        {status === 'checked-in' && (
           <CheckoutButton bookingId={bookingId} />
         )}
 
