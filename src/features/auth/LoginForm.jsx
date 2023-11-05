@@ -4,6 +4,7 @@ import Form from '../../ui/Form';
 import FormRowVertical from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
 import { useLogin } from './useLogin';
+import SpinnerMini from '../../ui/SpinnerMini';
 
 const LoginForm = () => {
   const { login, isLoggingIn } = useLogin();
@@ -30,6 +31,7 @@ const LoginForm = () => {
           {...register('email', {
             required: 'Email is required.',
           })}
+          disabled={isLoggingIn}
         />
       </FormRowVertical>
       <FormRowVertical
@@ -41,11 +43,12 @@ const LoginForm = () => {
           {...register('password', {
             required: 'Password  is required',
           })}
+          disabled={isLoggingIn}
         />
       </FormRowVertical>
       <FormRowVertical>
         <Button $size='large' disabled={isLoggingIn}>
-          Log in
+          {isLoggingIn ? <SpinnerMini /> : 'Log in'}
         </Button>
       </FormRowVertical>
     </Form>

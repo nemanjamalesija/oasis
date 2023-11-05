@@ -8,10 +8,18 @@ export async function logIn(email, password) {
       password,
     });
 
-  console.log(email, password);
-  console.log(data);
-
-  if (error) throw new Error('Could not log in.');
+  if (error) throw new Error(error.message);
 
   return data;
+}
+
+// GET USER
+export async function getUser() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) throw new Error('Could not get the user.');
+
+  return user;
 }

@@ -5,20 +5,21 @@ import { useNavigate } from 'react-router-dom';
 
 export function useLogin() {
   const navigate = useNavigate();
-  const {
-    isLoading: isLoggingIn,
-    error,
-    mutate: login,
-  } = useMutation({
-    mutationFn: ({ email, password }) =>
-      loginAPI(email, password),
+  const { isLoading: isLoggingIn, mutate: login } =
+    useMutation({
+      mutationFn: ({ email, password }) =>
+        loginAPI(email, password),
 
-    onSuccess: () => {
-      toast.success('Succesfully logged in'), navigate('/');
-    },
+      onSuccess: (user) => {
+        console.log(user);
+        toast.success('Succesfully logged in'),
+          navigate('/');
+      },
 
-    onError: () => toast.error(error.message),
-  });
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
 
   return { isLoggingIn, login };
 }
