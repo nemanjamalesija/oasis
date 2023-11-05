@@ -86,7 +86,9 @@ function CheckinBooking() {
         <Box>
           <CheckBox
             checked={includeBreakfast}
-            onChange={() => setIncludeBreakfast(true)}
+            onChange={() =>
+              setIncludeBreakfast((prev) => !prev)
+            }
           >
             Want to add breakfast for&nbsp;
             {formatCurrency(breakfastPrice)} ?
@@ -103,7 +105,14 @@ function CheckinBooking() {
         >
           I confirm that <strong>{guests.fullName}</strong>
           has paid the total amount of
-          <strong>{formatCurrency(totalPrice)}</strong>
+          <strong>
+            {formatCurrency(totalPrice + breakfastPrice)}
+          </strong>
+          {includeBreakfast
+            ? ` (${formatCurrency(
+                totalPrice
+              )} + ${formatCurrency(breakfastPrice)})`
+            : ''}
         </CheckBox>
       </Box>
 
