@@ -13,7 +13,6 @@ import { useBooking } from './useBooking';
 import Spinner from '../../ui/Spinner';
 import { useNavigate } from 'react-router-dom';
 import useDeleteBooking from './useDeleteBooking';
-import useSettings from '../settings/useSettings';
 import CheckoutButton from '../check-in-out/CheckoutButton';
 
 const HeadingGroup = styled.div`
@@ -72,7 +71,9 @@ function BookingDetail() {
           </Button>
         )}
 
-        <CheckoutButton bookingId={bookingId} />
+        {status !== 'checked-out' && (
+          <CheckoutButton bookingId={bookingId} />
+        )}
 
         <Button
           $variation='danger'
