@@ -13,6 +13,7 @@ import { useBooking } from './useBooking';
 import Spinner from '../../ui/Spinner';
 import { useNavigate } from 'react-router-dom';
 import useDeleteBooking from './useDeleteBooking';
+import useSettings from '../settings/useSettings';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const HeadingGroup = styled.div`
 function BookingDetail() {
   const { booking, isLoading } = useBooking();
   const { isDeleting, deleteBooking } = useDeleteBooking();
+
   const navigate = useNavigate();
 
   const moveBack = useMoveBack();
@@ -41,6 +43,8 @@ function BookingDetail() {
     deleteBooking(booking.id);
     navigate('/');
   }
+
+  console.log(booking);
 
   return (
     <>

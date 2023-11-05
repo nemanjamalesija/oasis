@@ -14,6 +14,7 @@ import { useMoveBack } from '../../hooks/useMoveBack';
 import { useBooking } from '../bookings/useBooking';
 import { formatCurrency } from '../../utils/helpers';
 import { useCheckIn } from './useCheckin';
+import useSettings from '../settings/useSettings';
 
 const Box = styled.div`
   /* Box */
@@ -25,7 +26,12 @@ const Box = styled.div`
 
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
+  const [includeBreakfast, setIncludeBreakfast] =
+    useState(false);
   const { booking, isLoading } = useBooking();
+
+  const { settings, isLoading: isLoadingSettings } =
+    useSettings();
 
   useEffect(() => {
     setConfirmPaid(booking?.isPaid ?? false);
@@ -35,7 +41,7 @@ function CheckinBooking() {
 
   const moveBack = useMoveBack();
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || isLoadingSettings) return <Spinner />;
 
   const {
     id: bookingId,
@@ -46,9 +52,21 @@ function CheckinBooking() {
     numNights,
   } = booking;
 
+  const breakfastPrice =
+    settings.breakfastPrice * numGuests * numNights;
+
   function handleCheckin() {
     if (!confirmPaid) return;
-    checkin(bookingId);
+    includeBreakfast
+      ? checkin({
+          bookingId,
+          updateBookingInfo: {
+            hasBreakfast: true,
+            extrasPrice: breakfastPrice,
+            totalPrice: breakfastPrice + totalPrice,
+          },
+        })
+      : checkin({ bookingId, updateBookingInfo: {} });
   }
 
   return (
@@ -63,6 +81,19 @@ function CheckinBooking() {
       </Row>
 
       <BookingDataBox booking={booking} />
+
+      {!hasBreakfast && (
+        <Box>
+          <CheckBox
+            checked={includeBreakfast}
+            onChange={() => setIncludeBreakfast(true)}
+          >
+            Want to add breakfast for&nbsp;
+            {formatCurrency(breakfastPrice)} ?
+          </CheckBox>
+        </Box>
+      )}
+
       <Box>
         <CheckBox
           id='confirmPayed'
@@ -83,7 +114,7 @@ function CheckinBooking() {
         >
           Check in booking #{bookingId}
         </Button>
-        <Button variation='secondary' onClick={moveBack}>
+        <Button $variation='secondary' onClick={moveBack}>
           Back
         </Button>
       </ButtonGroup>

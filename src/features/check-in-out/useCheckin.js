@@ -12,10 +12,11 @@ export function useCheckIn() {
 
   const { mutate: checkin, isLoading: isCheckingIn } =
     useMutation({
-      mutationFn: (bookingId) =>
+      mutationFn: ({ bookingId, updateBookingInfo }) =>
         updateBooking(bookingId, {
           status: 'checked-in',
           isPaid: true,
+          ...updateBookingInfo,
         }),
 
       onSuccess: (data) => {

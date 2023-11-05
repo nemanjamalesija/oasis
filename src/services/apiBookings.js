@@ -61,8 +61,6 @@ export async function getBooking(id) {
     .eq('id', id)
     .single();
 
-  console.log(data);
-
   if (error) {
     console.error(error);
     throw new Error('Booking not found');
@@ -126,6 +124,8 @@ export async function getStaysTodayActivity() {
 }
 
 export async function updateBooking(id, obj) {
+  console.log(id, obj);
+
   const { data, error } = await supabase
     .from('bookings')
     .update(obj)
