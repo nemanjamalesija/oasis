@@ -85,10 +85,12 @@ function CheckinBooking() {
       {!hasBreakfast && (
         <Box>
           <CheckBox
+            id='breakfast'
             checked={includeBreakfast}
-            onChange={() =>
-              setIncludeBreakfast((prev) => !prev)
-            }
+            onChange={() => {
+              setIncludeBreakfast((prev) => !prev);
+              setConfirmPaid(false);
+            }}
           >
             Want to add breakfast for&nbsp;
             {formatCurrency(breakfastPrice)} ?
@@ -121,7 +123,7 @@ function CheckinBooking() {
           onClick={handleCheckin}
           disabled={!confirmPaid || isCheckingIn}
         >
-          Check in booking #{bookingId}
+          Check in booking {bookingId}
         </Button>
         <Button $variation='secondary' onClick={moveBack}>
           Back

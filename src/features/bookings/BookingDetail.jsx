@@ -14,6 +14,7 @@ import Spinner from '../../ui/Spinner';
 import { useNavigate } from 'react-router-dom';
 import useDeleteBooking from './useDeleteBooking';
 import useSettings from '../settings/useSettings';
+import CheckoutButton from '../check-in-out/CheckoutButton';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -44,8 +45,6 @@ function BookingDetail() {
     navigate('/');
   }
 
-  console.log(booking);
-
   return (
     <>
       <Row type='horizontal'>
@@ -72,6 +71,8 @@ function BookingDetail() {
             Check in
           </Button>
         )}
+
+        <CheckoutButton bookingId={bookingId} />
 
         <Button
           $variation='danger'
