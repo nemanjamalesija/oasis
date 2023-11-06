@@ -3,7 +3,9 @@ import Form from '../../ui/Form';
 import FormRowVertical from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
 import AuthLink from '../../ui/AuthLink';
+import SpinnerMini from '../../ui/SpinnerMini';
 import { useForm } from 'react-hook-form';
+import { useSignup } from './useSignup';
 
 function SignupForm() {
   const {
@@ -13,9 +15,11 @@ function SignupForm() {
     watch,
     formState: { errors },
   } = useForm();
+  const { isLoading, signup } = useSignup();
 
   const onSubmit = (data) => {
     console.log(data);
+    signup(data);
     reset();
   };
 
@@ -73,7 +77,7 @@ function SignupForm() {
             minLength: {
               value: 8,
               message:
-                'Password must have at least 8 characters',
+                'Password must have at least 8 characters.',
             },
           })}
         />
@@ -98,7 +102,13 @@ function SignupForm() {
       </FormRowVertical>
 
       <FormRowVertical>
-        <Button $size='large'>Create new user</Button>
+        <Button $size='large'>
+          {isLoading ? (
+            <SpinnerMini />
+          ) : (
+            'Create new account'
+          )}
+        </Button>
       </FormRowVertical>
 
       <AuthLink to='/login' page='Log in'>
