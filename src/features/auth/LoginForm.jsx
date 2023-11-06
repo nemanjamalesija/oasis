@@ -5,6 +5,7 @@ import FormRowVertical from '../../ui/FormRowVertical';
 import Input from '../../ui/Input';
 import { useLogin } from './useLogin';
 import SpinnerMini from '../../ui/SpinnerMini';
+import AuthLink from '../../ui/AuthLink';
 
 const LoginForm = () => {
   const { login, isLoggingIn } = useLogin();
@@ -53,6 +54,10 @@ const LoginForm = () => {
           {isLoggingIn ? <SpinnerMini /> : 'Log in'}
         </Button>
       </FormRowVertical>
+
+      <AuthLink to='/signup' page='Sign up'>
+        Don't have an account?
+      </AuthLink>
     </Form>
   );
 };
