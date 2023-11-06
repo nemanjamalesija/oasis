@@ -56,7 +56,7 @@ const LoginForm = () => {
       </FormRowVertical>
 
       <AuthLink to='/signup' page='Sign up'>
-        Don't have an account?
+        Don&apos;t have an account?
       </AuthLink>
     </Form>
   );
