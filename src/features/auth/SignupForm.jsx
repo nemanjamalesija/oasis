@@ -10,15 +10,19 @@ function SignupForm() {
     register,
     reset,
     handleSubmit,
-    getValues,
+    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
+    reset();
   };
 
-  const onError = (errors) => console.log(errors);
+  const onError = (errors) => {
+    console.log(errors);
+    reset();
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -47,10 +51,10 @@ function SignupForm() {
             validate: {
               maxLength: (v) =>
                 v.length <= 50 ||
-                'The email should have at most 50 characters',
-              matchPattern: (v) =>
+                'The email should have at most 50 characters.',
+              matchPattern: (value) =>
                 /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-                  v
+                  value
                 ) || 'Email address is not valid.',
             },
           })}
@@ -66,9 +70,11 @@ function SignupForm() {
           id='password'
           {...register('password', {
             required: 'Password  is required',
-            validate: (value) =>
-              value.length < 8 &&
-              'Password must be at least 8 characters long.',
+            minLength: {
+              value: 8,
+              message:
+                'Password must have at least 8 characters',
+            },
           })}
         />
       </FormRowVertical>
@@ -81,10 +87,12 @@ function SignupForm() {
           type='password'
           id='passwordConfirm'
           {...register('passwordConfirm', {
-            required: 'Please confirm your pasword.',
-            validate: (value) =>
-              !value.includes(getValues().password) &&
-              'Password and password confirmation must match.',
+            required: true,
+            validate: (value) => {
+              if (watch('password') !== value) {
+                return 'Password and password confirm must match.';
+              }
+            },
           })}
         />
       </FormRowVertical>

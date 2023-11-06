@@ -21,7 +21,10 @@ const LoginForm = () => {
     reset();
   };
 
-  const onError = (errors) => console.log(errors);
+  const onError = (errors) => {
+    console.log(errors);
+    reset();
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>

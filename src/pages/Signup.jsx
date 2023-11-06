@@ -1,4 +1,4 @@
-import SignupForm from '../features/authentication/SignupForm';
+import SignupForm from '../features/auth/SignupForm';
 import AuthFormLayout from '../ui/AuthFormLayout';
 import Heading from '../ui/Heading';
 import Logo from '../ui/Logo';
