@@ -9,7 +9,6 @@ import Dashboard from './pages/Dashboard';
 import Bookings from './pages/Bookings';
 import Cabins from './pages/Cabins';
 import Login from './pages/Login';
-import Users from './pages/Users';
 import Settings from './pages/Settings';
 import Account from './pages/Account';
 import PageNotFound from './pages/PageNotFound';
@@ -73,7 +72,6 @@ function App() {
                 element={<Checkin />}
               />
               <Route path='cabins' element={<Cabins />} />
-              <Route path='users' element={<Users />} />
               <Route
                 path='settings'
                 element={<Settings />}
