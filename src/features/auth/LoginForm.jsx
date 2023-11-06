@@ -10,12 +10,14 @@ const LoginForm = () => {
   const { login, isLoggingIn } = useLogin();
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     login({ ...data });
+    reset();
   };
 
   const onError = (errors) => console.log(errors);

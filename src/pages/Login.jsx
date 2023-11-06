@@ -16,9 +16,9 @@ const LoginLayout = styled.main`
 `;
 
 function Login() {
-  const { user } = useUser();
+  const { isAuthenticated } = useUser();
 
-  if (user) return <Navigate to='/dashboard' />;
+  if (isAuthenticated) return <Navigate to='/dashboard' />;
 
   return (
     <LoginLayout>

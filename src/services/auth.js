@@ -15,11 +15,21 @@ export async function logIn(email, password) {
 
 // GET USER
 export async function getUser() {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { data: session } =
+    await supabase.auth.getSession();
 
-  if (!user) throw new Error('Could not get the user.');
+  if (!session.session) return null;
 
-  return user;
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) throw new Error(error.message);
+
+  return data?.user;
+}
+
+// LOG OUT
+export async function logOut() {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) throw new Error(error.message);
 }
